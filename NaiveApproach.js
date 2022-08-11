@@ -1,4 +1,23 @@
+const { count } = require('console');
 var fs = require('fs');
+
+const readline = require('readline-sync');
+const { PassThrough } = require('stream');
+
+function getNumberFromUser(myMessageToUser){
+
+    console.log(myMessageToUser);
+    let number = readline.prompt(myMessageToUser);
+    number = parseInt(number);
+
+    while( !number ){
+        console.log("ERROR: That is not a number!")
+        number = readline.prompt(myMessageToUser);
+        number = parseInt(number);
+    }
+
+    return number;
+}
 
 function checkIfContainsSync(filename, str) {
     const contents = fs.readFileSync(filename, 'utf-8');
@@ -34,18 +53,33 @@ function findAnyEmail (filename) {
     }
 
     //sort a dictionary in JS!:
-    var items = Object.keys(countOfUniqueDomains).map(function(key) {
-        return [key, countOfUniqueDomains[key]];
-    });
+    // var items = Object.keys(countOfUniqueDomains).map(function(key) {
+    //     return [key, countOfUniqueDomains[key]];
+    // });
 
-    items.sort(function(first, second) {
-        return second[1] - first[1];
-    });
-    console.log(items.slice(0, 10));
+    // items.sort(function(first, second) {
+    //     return second[1] - first[1];
+    // });
+    // console.log(items.slice(0, 10));
+
+    userNumber = getNumberFromUser("Please enter your Number");
+    returnArray = [];
+
+    for(var key in countOfUniqueDomains) {
+        
+        var value = countOfUniqueDomains[key];
+        if (value>=userNumber){
+            returnArray.push({key, value});
+        }
+
+        // do something with "key" and "value" variables
+      }
+      console.log(returnArray);
+
 
     return countOfUniqueDomains;
 }
 
 var filePath = 'test.txt';
 
-console.log(findAnyEmail(filePath));
+findAnyEmail(filePath);
