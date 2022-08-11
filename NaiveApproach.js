@@ -19,12 +19,12 @@ function strCounter (filename) {
 function findAnyEmail (filename) {
     const contents = fs.readFileSync(filename, 'utf-8');
 
-    const count = contents.match(/[\r\n\s ]([a-z.'_%+-]+@+[a-z])[.,;\r\n\s ]/gi).map(x => x.replaceAll(/[\s]/g, ''));
+    const arrayOfEmails = contents.match(/(?![\s,;])([a-z]+@([a-z]+\.)+[a-z]+)(?=[\s,;])/gi);
 
-    return count;
+    return arrayOfEmails;
 }
 
 //const listOfEmails = {}
 var filePath = 'test.txt';
 // console.log(checkIfContainsSync(filePath, '@softwire.com'));
-console.log(strCounter(filePath));
+console.log(findAnyEmail(filePath));
