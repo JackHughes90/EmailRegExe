@@ -11,7 +11,7 @@ function checkIfContainsSync(filename, str) {
 function strCounter (filename) {
     const contents = fs.readFileSync(filename, 'utf-8');
 
-    const count = contents.match(/[\r\n\s ]([a-z.'_%+-]+@softwire.com)[.,;\r\n\s ]/gi).map(x => x.replaceAll(/[\s]/g, ''));
+    const count = contents.match(/(?![\s,;])([a-z]+@techswitch.co.uk)(?=[\s,;])/gi).length;
 
     return count;
 }
@@ -24,10 +24,7 @@ function findAnyEmail (filename) {
     return count;
 }
 
-const listOfEmails = {
-
-}
-
-var filePath = 'C:/Users/jachug/Documents/03.EmailRegExe/test.txt';
+//const listOfEmails = {}
+var filePath = 'test.txt';
 // console.log(checkIfContainsSync(filePath, '@softwire.com'));
 console.log(strCounter(filePath));
