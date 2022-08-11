@@ -24,6 +24,7 @@ function findAnyEmail (filename) {
     const countOfUniqueDomains = {};
 
     for( i=0; i<arrayOfEmails.length; i++){
+
         if(!countOfUniqueDomains[arrayOfEmails[i]]){
             countOfUniqueDomains[arrayOfEmails[i]] = 1;
         }
@@ -32,10 +33,19 @@ function findAnyEmail (filename) {
         }
     }
 
+    //sort a dictionary in JS!:
+    var items = Object.keys(countOfUniqueDomains).map(function(key) {
+        return [key, countOfUniqueDomains[key]];
+    });
+
+    items.sort(function(first, second) {
+        return second[1] - first[1];
+    });
+    console.log(items.slice(0, 10));
+
     return countOfUniqueDomains;
 }
 
-//const listOfEmails = {}
 var filePath = 'test.txt';
-// console.log(checkIfContainsSync(filePath, '@softwire.com'));
+
 console.log(findAnyEmail(filePath));
