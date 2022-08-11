@@ -19,9 +19,20 @@ function strCounter (filename) {
 function findAnyEmail (filename) {
     const contents = fs.readFileSync(filename, 'utf-8');
 
-    const arrayOfEmails = contents.match(/(?![\s,;])([a-z]+@([a-z]+\.)+[a-z]+)(?=[\s,;])/gi);
+    const arrayOfEmails = contents.match(/(?![\s,;])(?<=[a-z])(@([a-z]+\.)+[a-z]+)(?=[\s,;])/gi);
 
-    return arrayOfEmails;
+    const countOfUniqueDomains = {};
+
+    for( i=0; i<arrayOfEmails.length; i++){
+        if(!countOfUniqueDomains[arrayOfEmails[i]]){
+            countOfUniqueDomains[arrayOfEmails[i]] = 1;
+        }
+        else{
+            countOfUniqueDomains[arrayOfEmails[i]]++;
+        }
+    }
+
+    return countOfUniqueDomains;
 }
 
 //const listOfEmails = {}
